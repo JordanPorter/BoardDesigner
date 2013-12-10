@@ -6,17 +6,29 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.image.ImageObserver;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 
-public class BoardDesigner {
+public class BoardDesigner extends JPanel{
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	/** Variables to Hold the size of the screen **/
 	public final int SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -24,10 +36,15 @@ public class BoardDesigner {
 	
 	/** Variables to hold the screen objects for the application **/
 	private JFrame frame;
-	private JScrollPane editWindow;
-	private JPanel editor; 
 	private BorderLayout layout;
-		
+	private JPanel editor;
+	
+	private JMenuBar menu;
+	
+	private JMenu file;
+	private JMenuItem newBoard;
+
+	
 	
 	/**
 	 * Constructs a new BoardDesigner with a new frame
@@ -56,15 +73,30 @@ public class BoardDesigner {
 		layout = new BorderLayout();
 		frame.setLayout(layout);
 		
-		editWindow = new JScrollPane();
-		frame.add(editWindow, BorderLayout.CENTER);
+		editor = new JPanel();
+
+		menu = new JMenuBar();
+
 		
-		editWindow.add();
+		file = new JMenu("File");
+		
+		newBoard = new JMenuItem("New Board");
+		newBoard.addActionListener(new ActionListener()	{
+
+			public void actionPerformed(ActionEvent arg0) {
+			}
+			
+		});
+		file.add(newBoard);
+		
+		menu.add(file);
+		
+		frame.setJMenuBar(menu);
 	}
 	
-	void paintComponent(Graphics g)	{
+	public void paintComponent(Graphics g)	{
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.fillRoundRect(10, 10, 50, 50, 5, 5);
+		g2d.fillRect(100, 100, 50, 50);
 	}
 	
 	/**
